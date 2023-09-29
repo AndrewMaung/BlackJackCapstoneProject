@@ -3,6 +3,7 @@ import random
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 continue_game = True
 flag = True  # Define the flag variable at the top
+busted = False
 
 def deals():
     """
@@ -13,7 +14,7 @@ def deals():
     computer_deal = random.sample(cards, k=2)
     return player_deal, computer_deal
 
-while continue_game:
+while continue_game:                                                                       
     player_deck, computer_deck = deals() 
     print("Your cards are:")
     print(player_deck)
@@ -39,6 +40,7 @@ while continue_game:
     print("Your final deck is", player_deck)
     if sum(player_deck) > 21:
         print("You went over 21! BUSTED")
+        busted = True
 
     while sum(computer_deck) < 17:
         new_element = random.choice(cards)
@@ -54,15 +56,19 @@ while continue_game:
 
     player_result = sum(player_deck)
     dealer_result = sum(computer_deck)
-
-    if player_result > dealer_result:
-        print(f"Your cards add up to {player_result} and the dealer's cards add up to {dealer_result}")
-        print("YOU WIN!")
+    
+    if busted == False:
+        if player_result > dealer_result:
+            print(f"Your cards add up to {player_result} and the dealer's cards add up to {dealer_result}")
+            print("YOU WIN!")
+        else:
+            print(f"Your cards add up to {player_result} and the dealer's cards add up to {dealer_result}")
+            print("YOU LOSE")
     else:
-        print(f"Your cards add up to {player_result} and the dealer's cards add up to {dealer_result}")
-        print("YOU LOSE")
+        print("You Lose!")
     
     replay = input("Do you want to continue the game? (y/n): ")
     if replay != 'y':
         continue_game = False
         print("END")
+
